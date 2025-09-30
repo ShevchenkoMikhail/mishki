@@ -1,0 +1,2 @@
+Placeholder for hero gradient image.
+Please place your final hero-gradient.webp in this folder and delete this .txt file.

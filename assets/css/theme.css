@@ -1,0 +1,95 @@
+/* Theme variables: dark (default) and light via data-theme attribute */
+:root[data-theme="dark"] {
+  /* Legacy variables used by existing styles */
+  --bg: #0b0b0f;
+  --fg: #f2f3f5;
+
+  /* Design system variables (TZ.md §5.1) */
+  --bg-primary: #050505;
+  --bg-secondary: #1A1A1A;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A0A0A0;
+  --accent-gradient: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(11, 11, 15, 0.85);
+}
+
+:root[data-theme="light"] {
+  /* Legacy variables used by existing styles */
+  --bg: #ffffff;
+  --fg: #0b0b0f;
+
+  /* Design system variables (TZ.md §5.1) */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F3F4F6;
+  --text-primary: #111827;
+  --text-secondary: #6B7281;
+  --accent-gradient: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  --border-color: #E5E7EB;
+  --header-bg: rgba(255, 255, 255, 0.8);
+}
+
+/* Light theme overrides for Portfolio gradient and heading color */
+:root[data-theme="light"] .portfolio {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #C7007D 100%);
+}
+
+:root[data-theme="light"] .portfolio h2 {
+  color: #000000;
+}
+
+/* Стили для иконок переключения темы и языка в светлой теме */
+:root[data-theme="light"] .theme-toggle,
+:root[data-theme="light"] .lang-toggle {
+  border: 2px solid #000000 !important; /* черная обводка */
+  background: #ffffff !important; /* белый фон */
+  color: #000000 !important; /* черный текст */
+}
+
+:root[data-theme="light"] .theme-toggle:hover,
+:root[data-theme="light"] .lang-toggle:hover {
+  background: #f3f4f6 !important; /* светло-серый при наведении */
+  border-color: #000000 !important;
+}
+
+/* Стили для полей контактной формы в светлой теме */
+:root[data-theme="light"] .contact-form input,
+:root[data-theme="light"] .contact-form textarea {
+  background: #ffffff !important; /* белый фон полей */
+  color: #000000 !important; /* черный текст */
+  border: 3px solid #C7007D !important; /* розовая обводка */
+}
+
+:root[data-theme="light"] .contact-form input:hover,
+:root[data-theme="light"] .contact-form textarea:hover {
+  border-color: #00ff66 !important; /* зеленая обводка при наведении */
+}
+
+:root[data-theme="light"] .contact-form input:focus,
+:root[data-theme="light"] .contact-form textarea:focus {
+  border-color: #00ff66 !important; /* зеленая обводка при фокусе */
+}
+
+/* Placeholder'ы в светлой теме */
+:root[data-theme="light"] .contact-form input::placeholder,
+:root[data-theme="light"] .contact-form textarea::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important; /* темно-серый placeholder */
+}
+
+/* Для Safari/старых браузеров */
+:root[data-theme="light"] .contact-form input::-webkit-input-placeholder,
+:root[data-theme="light"] .contact-form textarea::-webkit-input-placeholder { 
+  color: rgba(0, 0, 0, 0.6) !important; 
+}
+:root[data-theme="light"] .contact-form input::-moz-placeholder,
+:root[data-theme="light"] .contact-form textarea::-moz-placeholder { 
+  color: rgba(0, 0, 0, 0.6) !important; 
+}
+:root[data-theme="light"] .contact-form input:-ms-input-placeholder,
+:root[data-theme="light"] .contact-form textarea:-ms-input-placeholder { 
+  color: rgba(0, 0, 0, 0.6) !important; 
+}
+:root[data-theme="light"] .contact-form input::-ms-input-placeholder,
+:root[data-theme="light"] .contact-form textarea::-ms-input-placeholder { 
+  color: rgba(0, 0, 0, 0.6) !important; 
+}
