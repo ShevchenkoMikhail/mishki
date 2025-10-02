@@ -26,7 +26,7 @@
     } catch (e) {
       // ignore storage errors
     }
-    return detectSystemTheme();
+    return 'dark'; // По умолчанию темная тема
   }
 
   // Initialize theme on page load

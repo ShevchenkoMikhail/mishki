@@ -93,3 +93,51 @@
 :root[data-theme="light"] .contact-form textarea::-ms-input-placeholder { 
   color: rgba(0, 0, 0, 0.6) !important; 
 }
+
+/* Стили для сендвич-меню в светлой теме */
+:root[data-theme="light"] .burger-menu img {
+  filter: brightness(0) invert(0) !important; /* Черный цвет для иконок в светлой теме */
+}
+
+/* Стили для логотипа в футере в светлой теме - оставляем темным */
+:root[data-theme="light"] .footer-column .logo .brand-text {
+  color: #F5F5F5 !important; /* Белый цвет логотипа в футере */
+  text-shadow:
+    0 0 10px rgba(255, 122, 0, 0.12),
+    0 0 18px rgba(123, 0, 255, 0.10) !important;
+}
+
+/* Стили для текста в сендвич-меню в светлой теме */
+:root[data-theme="light"] nav a {
+  color: #000000 !important; /* Черный цвет ссылок в меню */
+}
+
+:root[data-theme="light"] nav a:hover,
+:root[data-theme="light"] nav a:focus-visible {
+  color: #000000 !important; /* Черный цвет при наведении */
+  background-color: transparent !important; /* Убираем изменение фона */
+}
+
+/* Стили для заголовка "What Our Clients Say" в светлой теме */
+:root[data-theme="light"] .testimonials h2 {
+  color: #ffffff !important; /* Белый цвет заголовка в светлой теме */
+}
+
+/* Стили для навигационных ссылок в футере в светлой теме */
+:root[data-theme="light"] .footer-column nav a {
+  color: #6B7281 !important; /* Серый цвет ссылок в футере */
+}
+
+:root[data-theme="light"] .footer-column nav a:hover,
+:root[data-theme="light"] .footer-column nav a:focus-visible {
+  color: #6B7281 !important; /* Серый цвет при наведении */
+}
+
+/* Стили для карточек портфолио в светлой теме */
+:root[data-theme="light"] .portfolio-text h3 {
+  color: #000000 !important; /* Черный цвет заголовков карточек */
+}
+
+:root[data-theme="light"] .portfolio-text p {
+  color: #6B7281 !important; /* Серый цвет описаний карточек */
+}

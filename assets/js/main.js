@@ -11,6 +11,59 @@ console.log("MishKi Agency: main.js loaded");
   }
 })();
 
+// Mobile menu toggle functionality
+(function() {
+  const burgerMenu = document.querySelector('.burger-menu');
+  const burgerIcon = document.querySelector('.burger-icon');
+  const closeIcon = document.querySelector('.close-icon');
+  const body = document.body;
+  
+  if (burgerMenu) {
+    burgerMenu.addEventListener('click', function() {
+      const isOpen = body.classList.contains('nav-open');
+      
+      if (isOpen) {
+        body.classList.remove('nav-open');
+        burgerMenu.setAttribute('aria-expanded', 'false');
+        burgerMenu.setAttribute('aria-label', 'Open menu');
+        if (burgerIcon) burgerIcon.style.display = 'block';
+        if (closeIcon) closeIcon.style.display = 'none';
+      } else {
+        body.classList.add('nav-open');
+        burgerMenu.setAttribute('aria-expanded', 'true');
+        burgerMenu.setAttribute('aria-label', 'Close menu');
+        if (burgerIcon) burgerIcon.style.display = 'none';
+        if (closeIcon) closeIcon.style.display = 'block';
+      }
+    });
+    
+    // Close menu when clicking on nav links
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        body.classList.remove('nav-open');
+        burgerMenu.setAttribute('aria-expanded', 'false');
+        burgerMenu.setAttribute('aria-label', 'Open menu');
+        if (burgerIcon) burgerIcon.style.display = 'block';
+        if (closeIcon) closeIcon.style.display = 'none';
+      });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (body.classList.contains('nav-open') && 
+          !burgerMenu.contains(e.target) && 
+          !document.querySelector('nav').contains(e.target)) {
+        body.classList.remove('nav-open');
+        burgerMenu.setAttribute('aria-expanded', 'false');
+        burgerMenu.setAttribute('aria-label', 'Open menu');
+        if (burgerIcon) burgerIcon.style.display = 'block';
+        if (closeIcon) closeIcon.style.display = 'none';
+      }
+    });
+  }
+})();
+
 // Scroll reveal animation with Intersection Observer
 (function() {
   const revealElements = document.querySelectorAll('.reveal');
@@ -438,5 +491,107 @@ document.addEventListener('DOMContentLoaded', () => {
               createCursorStar(e.clientX + jitterX, e.clientY + jitterY);
           }
       });
+  }
+
+  // === ИНТЕГРАЦИЯ ОТСЛЕЖИВАНИЯ СОБЫТИЙ ===
+  
+  // Отслеживание кликов по CTA кнопкам
+  const ctaButtons = document.querySelectorAll('.cta-button, .btn');
+  ctaButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const buttonText = button.textContent.trim();
+      const location = button.closest('section')?.className || 'unknown';
+      
+      if (window.tracking) {
+        window.tracking.trackCTAClick(buttonText, location);
+      }
+    });
+  });
+  
+  // Отслеживание отправки формы
+  const contactForm = document.querySelector('.contact-form form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      const formData = new FormData(contactForm);
+      const formObject = {};
+      formData.forEach((value, key) => {
+        formObject[key] = value;
+      });
+      
+      if (window.tracking) {
+        window.tracking.trackFormSubmission(formObject);
+      }
+    });
+  }
+  
+  // Отслеживание кликов по навигации
+  const navLinks = document.querySelectorAll('nav a, .footer-column a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const linkText = link.textContent.trim();
+      const destination = link.getAttribute('href') || 'unknown';
+      
+      if (window.tracking) {
+        window.tracking.trackNavigationClick(linkText, destination);
+      }
+    });
+  });
+  
+  // Отслеживание взаимодействия с портфолио
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  portfolioItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const projectName = item.querySelector('h3')?.textContent || 'Unknown Project';
+      
+      if (window.tracking) {
+        window.tracking.trackPortfolioInteraction(projectName, 'click');
+      }
+    });
+  });
+  
+  // Отслеживание прокрутки до секций
+  const sections = document.querySelectorAll('section[id]');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (window.tracking) {
+          window.tracking.trackSectionView(entry.target.id);
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  sections.forEach(section => sectionObserver.observe(section));
+  
+  // Отслеживание времени на странице
+  window.addEventListener('beforeunload', () => {
+    if (window.tracking) {
+      window.tracking.trackTimeOnPage();
+    }
+  });
+
+  // Testimonials Carousel Infinite Scroll
+  const testimonialsTrack = document.querySelector('.testimonials-track');
+  if (testimonialsTrack) {
+    // Клонируем все карточки отзывов для бесшовной прокрутки
+    const testimonialCards = testimonialsTrack.querySelectorAll('.testimonial-card');
+    const clonedCards = Array.from(testimonialCards).map(card => card.cloneNode(true));
+    
+    // Добавляем клонированные карточки в конец трека
+    clonedCards.forEach(card => {
+      testimonialsTrack.appendChild(card);
+    });
+
+    // Пауза анимации при наведении
+    const carousel = document.querySelector('.testimonials-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', () => {
+        testimonialsTrack.style.animationPlayState = 'paused';
+      });
+      
+      carousel.addEventListener('mouseleave', () => {
+        testimonialsTrack.style.animationPlayState = 'running';
+      });
+    }
   }
 });
